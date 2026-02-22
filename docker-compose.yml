@@ -1,0 +1,48 @@
+services:
+  web:
+    image: web
+    container_name: dvq1601-web
+    stdin_open: true
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    networks:
+      - fe-api
+
+  api:
+    image: api
+    container_name: dvq1601-api
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - fe-api
+      - api-db
+    depends_on:
+      - db
+    environment:
+      - PORT=3000
+      - DATABASE_PORT=mongodb+srv://root:hello123@vdt.dm0vket.mongodb.net/?appName=vdt
+      - JWT_SECRET=VDT2024
+
+  db:
+    image: mongo:7.0
+    container_name: dvq1601-db
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - api-db
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=hello123
+      - MONGO_INITDB_DATABASE=vdt_db
+
+volumes:
+  mongodb_data:
+
+networks:
+  fe-api:
+  api-db:
