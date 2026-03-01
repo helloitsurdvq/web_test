@@ -51,8 +51,8 @@ autoscaling:
 
 nginxExporter:
   scrapeHost: web
-  scrapePort: 80
-  
+  scrapePort: 8080
+
 volumes: []
 # - name: foo
 #   secret:
