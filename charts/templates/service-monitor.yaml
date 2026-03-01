@@ -5,12 +5,12 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     prometheus: main
-    app: web
+    app: web-monitor
 spec:
   selector:
     matchLabels:
-      app: web
+      app: web-monitor
   endpoints:
-    - port: web-app
+    - port: web-port
       path: /metrics
       interval: 30s
